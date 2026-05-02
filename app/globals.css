@@ -1,26 +1,498 @@
 @import "tailwindcss";
 
+@theme {
+  --color-bg-base: #0B0B0B;
+  --color-bg-surface: #0f0f0f;
+  --color-bg-card: #131313;
+  --color-accent: #00D4FF;
+  --color-accent-mid: #00A8CC;
+  --color-accent-deep: #0077A8;
+  --color-muted: #A1A1A1;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0B0B0B;
+  --foreground: #ffffff;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 64px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #0B0B0B;
+  color: #ffffff;
 }
+
+/* Scrollbar hide */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Neon blue glow pulse */
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 18px rgba(0,212,255,0.55), 0 0 36px rgba(0,212,255,0.2); }
+  50%       { box-shadow: 0 0 32px rgba(0,212,255,0.85), 0 0 64px rgba(0,212,255,0.35); }
+}
+.glow-pulse { animation: glow-pulse 2.5s ease-in-out infinite; }
+
+/* Float */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+.float { animation: float 4s ease-in-out infinite; }
+
+/* Hero background particles */
+@keyframes particle-drift {
+  0%   { transform: translateY(0px) translateX(0px); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateY(-120vh) translateX(40px); opacity: 0; }
+}
+@keyframes particle-drift-2 {
+  0%   { transform: translateY(0px) translateX(0px); opacity: 0; }
+  10%  { opacity: 0.7; }
+  90%  { opacity: 0.7; }
+  100% { transform: translateY(-110vh) translateX(-60px); opacity: 0; }
+}
+@keyframes particle-drift-3 {
+  0%   { transform: translateY(0px) translateX(0px); opacity: 0; }
+  15%  { opacity: 0.5; }
+  85%  { opacity: 0.5; }
+  100% { transform: translateY(-130vh) translateX(20px); opacity: 0; }
+}
+
+/* Scan line sweep */
+@keyframes scan-sweep {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  5%   { opacity: 1; }
+  95%  { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+.scan-line {
+  animation: scan-sweep 6s linear infinite;
+}
+
+/* Cursor glow */
+.cursor-glow {
+  pointer-events: none;
+  position: fixed;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, opacity 0.2s;
+  z-index: 9999;
+  mix-blend-mode: screen;
+}
+
+/* Floating dot particles */
+.hero-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(0, 212, 255, 0.6);
+  pointer-events: none;
+}
+.hero-particle:nth-child(1)  { width: 2px; height: 2px; left: 10%; bottom: 10%; animation: particle-drift   12s linear infinite; animation-delay: 0s; }
+.hero-particle:nth-child(2)  { width: 3px; height: 3px; left: 25%; bottom: 5%;  animation: particle-drift-2 15s linear infinite; animation-delay: 2s; }
+.hero-particle:nth-child(3)  { width: 2px; height: 2px; left: 40%; bottom: 15%; animation: particle-drift   18s linear infinite; animation-delay: 4s; }
+.hero-particle:nth-child(4)  { width: 4px; height: 4px; left: 55%; bottom: 8%;  animation: particle-drift-3 14s linear infinite; animation-delay: 1s; }
+.hero-particle:nth-child(5)  { width: 2px; height: 2px; left: 70%; bottom: 12%; animation: particle-drift-2 16s linear infinite; animation-delay: 3s; }
+.hero-particle:nth-child(6)  { width: 3px; height: 3px; left: 85%; bottom: 6%;  animation: particle-drift   20s linear infinite; animation-delay: 5s; }
+.hero-particle:nth-child(7)  { width: 2px; height: 2px; left: 15%; bottom: 20%; animation: particle-drift-3 13s linear infinite; animation-delay: 7s; }
+.hero-particle:nth-child(8)  { width: 2px; height: 2px; left: 60%; bottom: 25%; animation: particle-drift   17s linear infinite; animation-delay: 6s; }
+.hero-particle:nth-child(9)  { width: 3px; height: 3px; left: 80%; bottom: 18%; animation: particle-drift-2 11s linear infinite; animation-delay: 8s; }
+.hero-particle:nth-child(10) { width: 2px; height: 2px; left: 35%; bottom: 30%; animation: particle-drift-3 19s linear infinite; animation-delay: 9s; }
+
+/* Blinking cursor caret on headline */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+.blink { animation: blink 1.1s step-end infinite; }
+
+/* Infinite marquee scroll */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+  /* add a small right gap so the two tracks don't visually merge */
+  padding-right: 0.5rem;
+}
+
+/* ── Instrumentation page — green theme ── */
+
+/* Green glow pulse */
+@keyframes instr-glow-pulse {
+  0%, 100% { box-shadow: 0 0 18px rgba(34,197,94,0.55), 0 0 36px rgba(34,197,94,0.2); }
+  50%       { box-shadow: 0 0 32px rgba(34,197,94,0.85), 0 0 64px rgba(34,197,94,0.35); }
+}
+.instr-glow-pulse { animation: instr-glow-pulse 2.5s ease-in-out infinite; }
+
+/* Green floating particles */
+@keyframes particle-drift-green {
+  0%   { transform: translateY(0px) translateX(0px); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateY(-120vh) translateX(40px); opacity: 0; }
+}
+@keyframes particle-drift-green-2 {
+  0%   { transform: translateY(0px) translateX(0px); opacity: 0; }
+  10%  { opacity: 0.7; }
+  90%  { opacity: 0.7; }
+  100% { transform: translateY(-110vh) translateX(-60px); opacity: 0; }
+}
+@keyframes particle-drift-green-3 {
+  0%   { transform: translateY(0px) translateX(0px); opacity: 0; }
+  15%  { opacity: 0.5; }
+  85%  { opacity: 0.5; }
+  100% { transform: translateY(-130vh) translateX(20px); opacity: 0; }
+}
+
+.hero-particle-green {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(34, 197, 94, 0.6);
+  pointer-events: none;
+}
+.hero-particle-green:nth-child(1)  { width: 2px; height: 2px; left: 10%; bottom: 10%; animation: particle-drift-green   12s linear infinite; animation-delay: 0s; }
+.hero-particle-green:nth-child(2)  { width: 3px; height: 3px; left: 25%; bottom: 5%;  animation: particle-drift-green-2 15s linear infinite; animation-delay: 2s; }
+.hero-particle-green:nth-child(3)  { width: 2px; height: 2px; left: 40%; bottom: 15%; animation: particle-drift-green   18s linear infinite; animation-delay: 4s; }
+.hero-particle-green:nth-child(4)  { width: 4px; height: 4px; left: 55%; bottom: 8%;  animation: particle-drift-green-3 14s linear infinite; animation-delay: 1s; }
+.hero-particle-green:nth-child(5)  { width: 2px; height: 2px; left: 70%; bottom: 12%; animation: particle-drift-green-2 16s linear infinite; animation-delay: 3s; }
+.hero-particle-green:nth-child(6)  { width: 3px; height: 3px; left: 85%; bottom: 6%;  animation: particle-drift-green   20s linear infinite; animation-delay: 5s; }
+.hero-particle-green:nth-child(7)  { width: 2px; height: 2px; left: 15%; bottom: 20%; animation: particle-drift-green-3 13s linear infinite; animation-delay: 7s; }
+.hero-particle-green:nth-child(8)  { width: 2px; height: 2px; left: 60%; bottom: 25%; animation: particle-drift-green   17s linear infinite; animation-delay: 6s; }
+.hero-particle-green:nth-child(9)  { width: 3px; height: 3px; left: 80%; bottom: 18%; animation: particle-drift-green-2 11s linear infinite; animation-delay: 8s; }
+.hero-particle-green:nth-child(10) { width: 2px; height: 2px; left: 35%; bottom: 30%; animation: particle-drift-green-3 19s linear infinite; animation-delay: 9s; }
+
+/* ── Oil & Gas page — gold + orange theme ── */
+
+@keyframes oilgas-glow-pulse {
+  0%, 100% { box-shadow: 0 0 18px rgba(249,115,22,0.55), 0 0 36px rgba(212,175,55,0.2); }
+  50%       { box-shadow: 0 0 32px rgba(249,115,22,0.85), 0 0 64px rgba(212,175,55,0.35); }
+}
+.oilgas-glow-pulse { animation: oilgas-glow-pulse 2.5s ease-in-out infinite; }
+
+/* ── BMS page — blue + green theme ── */
+
+@keyframes bms-glow-pulse {
+  0%, 100% { box-shadow: 0 0 18px rgba(59,130,246,0.55), 0 0 36px rgba(34,197,94,0.2); }
+  50%       { box-shadow: 0 0 32px rgba(59,130,246,0.85), 0 0 64px rgba(34,197,94,0.35); }
+}
+.bms-glow-pulse { animation: bms-glow-pulse 2.5s ease-in-out infinite; }
+
+/* ── Embedded Systems & VLSI page — purple theme ── */
+
+@keyframes embedded-glow-pulse {
+  0%, 100% { box-shadow: 0 0 18px rgba(139,92,246,0.55), 0 0 36px rgba(139,92,246,0.2); }
+  50%       { box-shadow: 0 0 32px rgba(139,92,246,0.85), 0 0 64px rgba(167,139,250,0.35); }
+}
+.embedded-glow-pulse { animation: embedded-glow-pulse 2.5s ease-in-out infinite; }
+
+/* ── MEP & BIM page — deep blue + orange theme ── */
+
+@keyframes mep-glow-pulse {
+  0%, 100% { box-shadow: 0 0 18px rgba(249,115,22,0.55), 0 0 36px rgba(30,58,138,0.3); }
+  50%       { box-shadow: 0 0 32px rgba(249,115,22,0.85), 0 0 64px rgba(30,58,138,0.5); }
+}
+.mep-glow-pulse { animation: mep-glow-pulse 2.5s ease-in-out infinite; }
+
+/* ── Graphics & Film page — black + neon yellow theme ── */
+
+@keyframes graphics-glow-pulse {
+  0%, 100% { box-shadow: 0 0 18px rgba(250,204,21,0.6), 0 0 36px rgba(250,204,21,0.2); }
+  50%       { box-shadow: 0 0 32px rgba(250,204,21,0.9), 0 0 64px rgba(250,204,21,0.35); }
+}
+.graphics-glow-pulse { animation: graphics-glow-pulse 2.5s ease-in-out infinite; }
+
+/* ── Graphics & Film hero animations ── */
+
+@keyframes gfx-float-a {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33%       { transform: translateY(-14px) rotate(3deg); }
+  66%       { transform: translateY(-6px) rotate(-2deg); }
+}
+@keyframes gfx-float-b {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  40%       { transform: translateY(-18px) rotate(-4deg); }
+  70%       { transform: translateY(-8px) rotate(2deg); }
+}
+@keyframes gfx-float-c {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50%       { transform: translateY(-10px) scale(1.06); }
+}
+.gfx-float-a { animation: gfx-float-a 5s ease-in-out infinite; }
+.gfx-float-b { animation: gfx-float-b 6.5s ease-in-out infinite; }
+.gfx-float-c { animation: gfx-float-c 4s ease-in-out infinite; }
+
+/* Film strip march — forward */
+@keyframes gfx-film-march {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.gfx-film-march         { animation: gfx-film-march 14s linear infinite; }
+.gfx-film-march-reverse { animation: gfx-film-march 16s linear infinite reverse; }
+
+/* Colour wheel spin */
+@keyframes gfx-spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.gfx-spin-slow { animation: gfx-spin-slow 12s linear infinite; }
+
+/* Timeline playhead pulse */
+@keyframes gfx-playhead {
+  0%, 100% { opacity: 0.6; transform: scaleY(1); }
+  50%       { opacity: 1;   transform: scaleY(1.04); }
+}
+.gfx-playhead { animation: gfx-playhead 1.2s ease-in-out infinite; }
+
+/* Neon flicker — fast, frequent */
+@keyframes gfx-flicker {
+  0%, 95%, 100% { opacity: 1; }
+  96%            { opacity: 0.4; }
+  97%            { opacity: 1; }
+  98%            { opacity: 0.6; }
+  99%            { opacity: 1; }
+}
+.gfx-flicker { animation: gfx-flicker 6s ease-in-out infinite; }
+
+/* Old-film content blink — fires every ~10s, very brief */
+@keyframes gfx-old-film {
+  0%,  8%,  100% { opacity: 1;    filter: none; }
+  1%             { opacity: 0.15; filter: brightness(2) contrast(1.5) sepia(0.3); }
+  2%             { opacity: 0.9;  filter: none; }
+  3%             { opacity: 0.6;  filter: brightness(1.8) saturate(0.5); }
+  4%             { opacity: 1;    filter: none; }
+  5%             { opacity: 0.3;  filter: brightness(2.5) contrast(2); }
+  6%             { opacity: 1;    filter: none; }
+  7%             { opacity: 0.8;  filter: brightness(1.4); }
+}
+.gfx-old-film { animation: gfx-old-film 10s ease-in-out infinite; }
+
+/* Old-film overlay flicker — the sepia/grain wash */
+@keyframes gfx-film-wash {
+  0%,  7%,  100% { opacity: 0; }
+  1%,  3%,  5%   { opacity: 0.18; }
+  2%,  4%,  6%   { opacity: 0; }
+}
+.gfx-film-wash { animation: gfx-film-wash 10s ease-in-out infinite; }
+
+/* Vertical scratch line */
+@keyframes gfx-scratch {
+  0%,  6%,  100% { opacity: 0; transform: scaleY(0) translateX(0); }
+  1%             { opacity: 0.6; transform: scaleY(1) translateX(0); }
+  2%             { opacity: 0.3; transform: scaleY(0.8) translateX(1px); }
+  3%             { opacity: 0.7; transform: scaleY(1) translateX(-1px); }
+  4%             { opacity: 0.2; transform: scaleY(0.6) translateX(0); }
+  5%             { opacity: 0; }
+}
+.gfx-scratch { animation: gfx-scratch 10s ease-in-out infinite; }
+
+/* Scan line for film effect */
+@keyframes gfx-scan {
+  0%   { top: -4px; opacity: 0; }
+  5%   { opacity: 0.6; }
+  95%  { opacity: 0.6; }
+  100% { top: 100%; opacity: 0; }
+}
+.gfx-scan { animation: gfx-scan 3s linear infinite; }
+
+/* Cursor pen nib */
+@keyframes gfx-cursor-trail {
+  0%   { opacity: 0.8; transform: translate(-50%,-50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%,-50%) scale(2.5); }
+}
+
+/* ── Digital Marketing page — orange → pink → purple gradient theme ── */
+
+/* Ticker: forward (left) — 2 copies, shift by exactly 50% */
+@keyframes dm-ticker-fwd {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+/* Ticker: reverse (right) — 2 copies, shift by exactly 50% in opposite direction */
+@keyframes dm-ticker-rev {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+.dm-ticker-fwd { animation: dm-ticker-fwd 28s linear infinite; }
+.dm-ticker-rev { animation: dm-ticker-rev 32s linear infinite; }
+
+@keyframes dm-glow-pulse {
+  0%, 100% { box-shadow: 0 0 18px rgba(236,72,153,0.55), 0 0 36px rgba(139,92,246,0.2); }
+  50%       { box-shadow: 0 0 32px rgba(236,72,153,0.85), 0 0 64px rgba(249,115,22,0.35); }
+}
+.dm-glow-pulse { animation: dm-glow-pulse 2.5s ease-in-out infinite; }
+
+/* Gradient text utility */
+.dm-gradient-text {
+  background: linear-gradient(90deg, #F97316 0%, #EC4899 50%, #8B5CF6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Floating social icons */
+@keyframes dm-float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+  33%       { transform: translateY(-14px) rotate(4deg); opacity: 1; }
+  66%       { transform: translateY(-6px) rotate(-3deg); opacity: 0.85; }
+}
+@keyframes dm-float-slow {
+  0%, 100% { transform: translateY(0px); opacity: 0.8; }
+  50%       { transform: translateY(-10px); opacity: 1; }
+}
+.dm-float      { animation: dm-float 5s ease-in-out infinite; }
+.dm-float-slow { animation: dm-float-slow 6s ease-in-out infinite; }
+
+/* Notification ping — for live metric badges */
+@keyframes dm-ping {
+  0%   { transform: scale(1); opacity: 0.8; }
+  70%  { transform: scale(1.4); opacity: 0; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+.dm-ping { animation: dm-ping 1.8s ease-out infinite; }
+
+/* Like heart burst */
+@keyframes dm-heart-burst {
+  0%   { transform: scale(1); }
+  30%  { transform: scale(1.35); }
+  60%  { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+.dm-heart-burst { animation: dm-heart-burst 1.2s ease-in-out infinite; }
+
+/* Trending arrow bounce */
+@keyframes dm-trend-bounce {
+  0%, 100% { transform: translateY(0) rotate(-45deg); }
+  50%       { transform: translateY(-5px) rotate(-45deg); }
+}
+.dm-trend-bounce { animation: dm-trend-bounce 1.5s ease-in-out infinite; }
+
+/* ── Networking page — black + neon green (hacker/underground tech) ── */
+
+@keyframes net-glow-pulse {
+  0%, 100% { box-shadow: 0 0 18px rgba(34,197,94,0.6), 0 0 36px rgba(34,197,94,0.2); }
+  50%       { box-shadow: 0 0 32px rgba(34,197,94,0.9), 0 0 64px rgba(74,222,128,0.35); }
+}
+.net-glow-pulse { animation: net-glow-pulse 2.5s ease-in-out infinite; }
+
+/* Binary strip march */
+@keyframes net-strip-march {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.net-strip-march { animation: net-strip-march 18s linear infinite; }
+
+/* Scan line sweep */
+@keyframes net-scan-line {
+  0%   { top: 64px; opacity: 0; }
+  5%   { opacity: 0.5; }
+  95%  { opacity: 0.5; }
+  100% { top: 100vh; opacity: 0; }
+}
+.net-scan-line { animation: net-scan-line 8s linear infinite; }
+
+/* Scan line for card hover effect */
+@keyframes net-scan {
+  0%   { top: -4px; opacity: 0; }
+  5%   { opacity: 0.6; }
+  95%  { opacity: 0.6; }
+  100% { top: 100%; opacity: 0; }
+}
+.net-scan { animation: net-scan 3s linear infinite; }
+
+/* Neon flicker — hacker terminal style */
+@keyframes net-flicker {
+  0%, 92%, 100% { opacity: 1; }
+  93%            { opacity: 0.3; }
+  94%            { opacity: 1; }
+  95%            { opacity: 0.5; }
+  96%            { opacity: 1; }
+  97%            { opacity: 0.2; }
+  98%            { opacity: 1; }
+}
+.net-flicker { animation: net-flicker 7s ease-in-out infinite; }
+
+/* Signal pulse — moves up the bar */
+@keyframes net-signal-pulse {
+  0%   { top: 80%; opacity: 0.4; }
+  50%  { top: 10%; opacity: 1; }
+  100% { top: 80%; opacity: 0.4; }
+}
+.net-signal-pulse { animation: net-signal-pulse 3s ease-in-out infinite; }
+
+/* Float for icons */
+@keyframes net-float {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50%       { transform: translateY(-10px) scale(1.06); }
+}
+.net-float { animation: net-float 4s ease-in-out infinite; }
+
+/* Green floating particles */
+@keyframes particle-drift-net {
+  0%   { transform: translateY(0px) translateX(0px); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateY(-120vh) translateX(40px); opacity: 0; }
+}
+@keyframes particle-drift-net-2 {
+  0%   { transform: translateY(0px) translateX(0px); opacity: 0; }
+  10%  { opacity: 0.7; }
+  90%  { opacity: 0.7; }
+  100% { transform: translateY(-110vh) translateX(-60px); opacity: 0; }
+}
+.hero-particle-net {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(34, 197, 94, 0.6);
+  pointer-events: none;
+}
+.hero-particle-net:nth-child(1)  { width: 2px; height: 2px; left: 10%; bottom: 10%; animation: particle-drift-net   12s linear infinite; animation-delay: 0s; }
+.hero-particle-net:nth-child(2)  { width: 3px; height: 3px; left: 25%; bottom: 5%;  animation: particle-drift-net-2 15s linear infinite; animation-delay: 2s; }
+.hero-particle-net:nth-child(3)  { width: 2px; height: 2px; left: 40%; bottom: 15%; animation: particle-drift-net   18s linear infinite; animation-delay: 4s; }
+.hero-particle-net:nth-child(4)  { width: 4px; height: 4px; left: 55%; bottom: 8%;  animation: particle-drift-net-2 14s linear infinite; animation-delay: 1s; }
+.hero-particle-net:nth-child(5)  { width: 2px; height: 2px; left: 70%; bottom: 12%; animation: particle-drift-net   16s linear infinite; animation-delay: 3s; }
+
+/* ── Course card tools strip — infinite marquee ── */
+@keyframes course-tools-march {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.course-tools-march { animation: course-tools-march 28s linear infinite; }
+.course-tools-march:hover { animation-play-state: paused; }
+
+@keyframes course-tools-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(calc(-1 * var(--track-px, 1008px))); }
+}
+.course-tools-scroll {
+  animation: course-tools-scroll 26s linear infinite;
+  will-change: transform;
+}
+.course-tools-scroll:hover { animation-play-state: paused; }
+
+/* ── Hero section mobile tools strip ── */
+/*
+  Uses a CSS custom property --track-px set inline from JS.
+  translateX(-var(--track-px)) moves exactly one track width,
+  landing on the start of track B which is visually identical → seamless.
+*/
+@keyframes hero-tools-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(calc(-1 * var(--track-px, 884px))); }
+}
+.hero-tools-scroll {
+  animation: hero-tools-scroll 20s linear infinite;
+  will-change: transform;
+}
+
+/* ── Hero CTA — neon red urgency pulse ── */
+@keyframes neon-red-pulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(255,50,50,0.7), 0 0 20px rgba(255,50,50,0.35), 0 0 40px rgba(255,50,50,0.15); }
+  50%       { box-shadow: 0 0 16px rgba(255,50,50,1),   0 0 36px rgba(255,50,50,0.6),  0 0 64px rgba(255,50,50,0.25); }
+}
+.neon-red-pulse { animation: neon-red-pulse 1.4s ease-in-out infinite; }

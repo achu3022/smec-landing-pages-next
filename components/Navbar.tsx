@@ -1,0 +1,73 @@
+import Image from 'next/image'
+import { Icon } from '@iconify/react'
+
+const WA = 'https://wa.me/919995879404?text=Hi%2C%20I%20want%20to%20enquire%20about%20the%20Industrial%20Automation%20course%20at%20SMECLabs%20Kochi%20-%20SMEC%20Automation%20Course%20Landing%20Page'
+
+export default function Navbar() {
+  return (
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0B0B0B]/95 backdrop-blur-md border-b border-[#00D4FF]/20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          <div className="flex-shrink-0">
+            <Image src="/smec-white-logo.png" alt="SMECLabs logo" width={160} height={52} />
+          </div>
+
+          {/* Desktop links */}
+          <div className="hidden md:flex items-center gap-6">
+            {[
+              ['#courses',   'Courses'],
+              ['#why',       'Why Us'],
+              ['#skills',    'Skills'],
+              ['#syllabus',  'Syllabus'],
+              ['#placement', 'Placements'],
+              ['#contact',   'Contact'],
+            ].map(([href, label]) => (
+              <a key={href} href={href}
+                className="text-[#A1A1A1] hover:text-[#00D4FF] transition-colors text-sm font-medium">
+                {label}
+              </a>
+            ))}
+
+            {/* Other pages dropdown */}
+            <div className="relative group">
+              <button className="flex items-center gap-1 text-[#A1A1A1] hover:text-[#00D4FF] transition-colors text-sm font-medium">
+                More
+                <Icon icon="mdi:chevron-down" className="w-3.5 h-3.5 transition-transform group-hover:rotate-180" aria-hidden="true" />
+              </button>
+              <div className="absolute right-0 top-full mt-2 w-56 rounded-xl border border-[#00D4FF]/20 bg-[#0B0B0B]/98 backdrop-blur-md shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
+                <div className="px-3 py-2 border-b border-white/6">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-[#00D4FF]/50">Other Courses</p>
+                </div>
+                {[
+                  ['/instrumentation', 'mdi:gauge',    'Instrumentation & Control'],
+                  ['/oilgas',          'mdi:oil',       'Oil & Gas / NDT / Safety'],
+                ].map(([href, icon, label]) => (
+                  <a key={href} href={href}
+                    className="flex items-center gap-2.5 px-3 py-2.5 text-sm text-[#A1A1A1] hover:text-white hover:bg-[#00D4FF]/8 transition-colors">
+                    <Icon icon={icon} className="w-4 h-4 text-[#00D4FF]/60 shrink-0" aria-hidden="true" />
+                    {label}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <a href={WA} target="_blank" rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-5 py-2 bg-[#00D4FF] text-black text-sm font-extrabold rounded-xl hover:bg-[#00A8CC] transition-colors glow-pulse">
+              <Icon icon="mdi:whatsapp" className="w-4 h-4" aria-hidden="true" />
+              Enquire Now
+            </a>
+          </div>
+
+          {/* Mobile CTA */}
+          <div className="md:hidden">
+            <a href={WA} target="_blank" rel="noopener noreferrer"
+              className="flex items-center gap-1 px-3 py-2 bg-[#00D4FF] text-black text-xs font-extrabold rounded-lg glow-pulse">
+              <Icon icon="mdi:whatsapp" className="w-3.5 h-3.5" aria-hidden="true" />
+              Enquire
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  )
+}

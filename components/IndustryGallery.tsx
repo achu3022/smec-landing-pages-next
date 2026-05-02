@@ -79,7 +79,7 @@ export default function IndustryGallery({
     <>
       <section
         id="industry"
-        className="py-20 relative overflow-hidden"
+        className="py-10 sm:py-20 relative overflow-hidden"
         style={{
           background: bg,
           backgroundImage: `radial-gradient(ellipse at 50% 0%, rgba(${accentRgb},0.07) 0%, transparent 55%)`,
@@ -100,7 +100,7 @@ export default function IndustryGallery({
             >
               Real Industry Work
             </p>
-            <h2 className="text-3xl sm:text-4xl font-black text-white">
+            <h2 className="text-2xl sm:text-3xl font-black text-white">
               Our{' '}
               <span style={{ color: accent, textShadow: `0 0 28px rgba(${accentRgb},0.5)` }}>
                 Industry Projects

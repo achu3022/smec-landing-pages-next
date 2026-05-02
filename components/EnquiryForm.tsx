@@ -30,14 +30,14 @@ export default function EnquiryForm() {
   const inputCls = 'w-full bg-[#0B0B0B] border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-[#A1A1A1]/40 focus:outline-none focus:border-[#00D4FF] transition-colors text-sm'
 
   return (
-    <section id="contact" className="py-20 bg-[#0B0B0B] relative overflow-hidden"
+    <section id="contact" className="py-10 sm:py-20 bg-[#0B0B0B] relative overflow-hidden"
       style={{ backgroundImage: `radial-gradient(ellipse at 50% 0%, rgba(0,212,255,0.07) 0%, transparent 50%)` }}>
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#00D4FF]/35 to-transparent" aria-hidden="true" />
 
       <div className="max-w-lg mx-auto px-4 sm:px-6">
         <div className="text-center mb-8">
           <p className="text-[#00D4FF] text-xs font-bold uppercase tracking-[0.25em] mb-3">Get Started</p>
-          <h2 className="text-3xl sm:text-4xl font-black text-white">
+          <h2 className="text-2xl sm:text-3xl font-black text-white">
             Enquire <span className="text-[#00D4FF]" style={{ textShadow: '0 0 28px rgba(0,212,255,0.5)' }}>Now</span>
           </h2>
           <p className="mt-2 text-[#A1A1A1] text-sm">We&apos;ll reach you on WhatsApp within minutes.</p>

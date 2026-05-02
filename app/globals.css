@@ -8,6 +8,11 @@
   --color-accent-mid: #00A8CC;
   --color-accent-deep: #0077A8;
   --color-muted: #A1A1A1;
+
+  /* Font families */
+  --font-sans:    var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-rajdhani), ui-sans-serif, system-ui, sans-serif;
+  --font-mono:    ui-monospace, 'Cascadia Code', monospace;
 }
 
 :root {
@@ -23,11 +28,23 @@ html {
 body {
   background-color: #0B0B0B;
   color: #ffffff;
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
 /* Scrollbar hide */
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Apply Rajdhani to all headings with tighter sizing */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-rajdhani), ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.01em;
+}
+
+/* Global heading size scale — one step smaller than Tailwind defaults */
+h1 { font-size: clamp(1.6rem, 5vw, 2.5rem);  line-height: 1.1; }
+h2 { font-size: clamp(1.3rem, 4vw, 2rem);    line-height: 1.15; }
+h3 { font-size: clamp(1.05rem, 3vw, 1.4rem); line-height: 1.2; }
 
 /* Neon blue glow pulse */
 @keyframes glow-pulse {

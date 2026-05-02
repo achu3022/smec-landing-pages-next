@@ -58,7 +58,7 @@ export default function SyllabusSection() {
   return (
     <section
       id="syllabus"
-      className="py-16 sm:py-20 bg-[#0B0B0B] relative overflow-hidden"
+      className="py-8 sm:py-16 bg-[#0B0B0B] relative overflow-hidden"
       style={{
         backgroundImage: `
           radial-gradient(ellipse at 15% 40%, rgba(0,212,255,0.05) 0%, transparent 50%),
@@ -75,7 +75,7 @@ export default function SyllabusSection() {
         {/* Heading */}
         <div className="text-center mb-10">
           <p className="text-[#00D4FF] text-xs font-bold uppercase tracking-[0.25em] mb-3">Full Curriculum</p>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white leading-tight">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-white leading-tight">
             Course{' '}
             <span className="text-[#00D4FF]" style={{ textShadow: '0 0 28px rgba(0,212,255,0.5)' }}>
               Syllabus

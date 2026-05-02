@@ -33,14 +33,14 @@ const projects = [
 
 export default function ProjectsSection() {
   return (
-    <section className="py-20 bg-[#0e0e0e] relative overflow-hidden"
+    <section className="py-10 sm:py-20 bg-[#0e0e0e] relative overflow-hidden"
       style={{ backgroundImage: `radial-gradient(ellipse at 70% 30%, rgba(0,212,255,0.06) 0%, transparent 50%)` }}>
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#00D4FF]/20 to-transparent" aria-hidden="true" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
           <p className="text-[#00D4FF] text-xs font-bold uppercase tracking-[0.25em] mb-3">Hands-On</p>
-          <h2 className="text-3xl sm:text-4xl font-black text-white leading-tight">
+          <h2 className="text-2xl sm:text-3xl font-black text-white leading-tight">
             You Won&apos;t Just Learn.{' '}
             <span className="text-[#00D4FF]" style={{ textShadow: '0 0 28px rgba(0,212,255,0.5)' }}>
               You&apos;ll Build.
@@ -51,7 +51,7 @@ export default function ProjectsSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           {projects.map((p, i) => (
             <div key={p.tag}
               className="group relative bg-[#111111] border border-white/8 rounded-2xl p-6 hover:border-[#00D4FF]/35 transition-all duration-300 overflow-hidden">

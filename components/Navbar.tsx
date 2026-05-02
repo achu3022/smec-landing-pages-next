@@ -5,7 +5,7 @@ const WA = 'https://wa.me/919995879404?text=Hi%2C%20I%20want%20to%20enquire%20ab
 
 export default function Navbar() {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0B0B0B]/95 backdrop-blur-md border-b border-[#00D4FF]/20">
+    <nav className="relative lg:fixed top-0 left-0 right-0 z-50 bg-[#0B0B0B]/95 backdrop-blur-md border-b border-[#00D4FF]/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex-shrink-0">

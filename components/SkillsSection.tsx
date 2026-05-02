@@ -13,14 +13,14 @@ const skills = [
 
 export default function SkillsSection() {
   return (
-    <section id="skills" className="py-20 bg-[#0B0B0B] relative overflow-hidden"
+    <section id="skills" className="py-10 sm:py-20 bg-[#0B0B0B] relative overflow-hidden"
       style={{ backgroundImage: `radial-gradient(ellipse at 20% 60%, rgba(0,212,255,0.05) 0%, transparent 50%)` }}>
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#00D4FF]/25 to-transparent" aria-hidden="true" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
           <p className="text-[#00D4FF] text-xs font-bold uppercase tracking-[0.25em] mb-3">What You&apos;ll Master</p>
-          <h2 className="text-3xl sm:text-4xl font-black text-white leading-tight">
+          <h2 className="text-2xl sm:text-3xl font-black text-white leading-tight">
             Skills That <span className="text-[#00D4FF]" style={{ textShadow: '0 0 28px rgba(0,212,255,0.5)' }}>Pay</span>
           </h2>
           <p className="mt-3 text-[#A1A1A1] max-w-lg mx-auto text-sm">

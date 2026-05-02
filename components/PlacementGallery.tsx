@@ -26,7 +26,7 @@ export default function PlacementGallery() {
   }, [paused, next])
 
   return (
-    <section id="placement" className="py-20 bg-black">
+    <section id="placement" className="py-10 sm:py-20 bg-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Heading */}
@@ -34,7 +34,7 @@ export default function PlacementGallery() {
           <p className="text-[#00D4FF] text-sm font-semibold uppercase tracking-widest mb-3">
             Success Stories
           </p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white">
+          <h2 className="text-2xl sm:text-3xl font-bold text-white">
             Our <span className="text-[#00D4FF]">Placements</span>
           </h2>
           <p className="mt-4 text-gray-400 max-w-xl mx-auto text-sm">

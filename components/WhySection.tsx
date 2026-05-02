@@ -24,17 +24,17 @@ const stats = [
 
 export default function WhySection() {
   return (
-    <section id="why" className="py-20 bg-[#0B0B0B] relative overflow-hidden"
+    <section id="why" className="py-10 sm:py-20 bg-[#0B0B0B] relative overflow-hidden"
       style={{ backgroundImage: `radial-gradient(ellipse at 80% 50%, rgba(0,212,255,0.06) 0%, transparent 55%)` }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div className="text-center mb-12">
           <p className="text-[#00D4FF] text-xs font-bold uppercase tracking-[0.25em] mb-3">The Real Talk</p>
-          <h2 className="text-3xl sm:text-4xl font-black text-white leading-tight">
+          <h2 className="text-2xl sm:text-3xl font-black text-white leading-tight">
             Why <span className="text-[#00D4FF]" style={{ textShadow: '0 0 28px rgba(0,212,255,0.5)' }}>SMECLabs</span>?
           </h2>
           <p className="mt-3 text-[#A1A1A1] max-w-lg mx-auto text-sm">
-            Gen Z doesn&apos;t want a certificate. They want a skill that pays.
+            Don&apos;t just want a certificate — get a skill that pays.
           </p>
         </div>
 

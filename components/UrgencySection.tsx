@@ -35,7 +35,7 @@ export default function UrgencySection() {
   ]
 
   return (
-    <section className="py-20 bg-[#0B0B0B] relative overflow-hidden"
+    <section className="py-10 sm:py-20 bg-[#0B0B0B] relative overflow-hidden"
       style={{ backgroundImage: `radial-gradient(ellipse at 50% 50%, rgba(0,212,255,0.08) 0%, transparent 60%)` }}>
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#00D4FF]/35 to-transparent" aria-hidden="true" />
 
@@ -45,7 +45,7 @@ export default function UrgencySection() {
           Next Batch Starting Soon
         </div>
 
-        <h2 className="text-3xl sm:text-4xl font-black text-white mb-3 leading-tight">
+        <h2 className="text-2xl sm:text-3xl font-black text-white mb-3 leading-tight">
           Seats Are{' '}
           <span className="text-[#00D4FF]" style={{ textShadow: '0 0 28px rgba(0,212,255,0.6)' }}>Filling Fast.</span>
         </h2>

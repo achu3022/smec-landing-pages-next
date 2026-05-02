@@ -35,7 +35,7 @@ export default function ToolsSlider() {
   }, [paused, next])
 
   return (
-    <section id="tools" className="py-16 bg-[#0B0B0B] relative overflow-hidden">
+    <section id="tools" className="py-8 sm:py-16 bg-[#0B0B0B] relative overflow-hidden">
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#00D4FF]/25 to-transparent" aria-hidden="true" />
       <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#00D4FF]/25 to-transparent" aria-hidden="true" />
 

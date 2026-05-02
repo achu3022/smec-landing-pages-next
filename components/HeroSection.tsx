@@ -97,26 +97,25 @@ export default function HeroSection() {
         <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-[#00D4FF]/7 blur-[100px] pointer-events-none" aria-hidden="true" />
         <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-[#00A8CC]/5 blur-[80px] pointer-events-none" aria-hidden="true" />
 
-        <div className="flex-1 flex flex-col justify-center pt-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-4 sm:py-8 lg:py-12">
+        <div className="flex-1 flex flex-col justify-center lg:pt-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-3 sm:py-8 lg:py-12">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-start">
 
               {/* ══ LEFT COLUMN ══ */}
-              <div className="flex flex-col gap-5">
+              <div className="flex flex-col gap-3 lg:gap-5">
 
                 {/* Headline */}
                 <div className="relative">
-                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-[1.08] tracking-tight">
+                  <h1 className="text-xl sm:text-3xl lg:text-4xl font-black text-white leading-[1.08] tracking-tight">
                     The Future Runs on{' '}
-                    <span className="text-[#00D4FF]" style={{ textShadow: '0 0 35px rgba(0,212,255,0.6)' }}>
-                      Automation.
-                    </span>
+                    <span className="text-[#00D4FF]" style={{ textShadow: '0 0 35px rgba(0,212,255,0.6)' }}>Automation.</span>
                     <br />
                     <span className="text-[#00A8CC]">Will You?</span>
                   </h1>
                   <p className="mt-3 text-[#A1A1A1] text-sm leading-relaxed max-w-lg">
-                    Master real PLC, SCADA, DCS &amp; AI skills used in live factories.
-                    Hands-on training on industry-standard equipment at SMECLabs Kochi.
+                    <span className="sm:hidden">Learn by doing. Master PLC, SCADA, DCS &amp; AI the simple way.</span>
+                    <span className="hidden sm:inline">Master real PLC, SCADA, DCS &amp; AI skills used in live factories.
+                    Hands-on training on industry-standard equipment at SMECLabs Kochi.</span>
                   </p>
                 </div>
 
@@ -191,7 +190,7 @@ export default function HeroSection() {
               </div>
 
               {/* ══ RIGHT COLUMN ══ */}
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-2.5 lg:gap-4">
 
                 {/* ── Lab image — mobile (above tools strip) ── */}
                 <div className="lg:hidden relative rounded-xl overflow-hidden border border-[#00D4FF]/20 shadow-[0_0_20px_rgba(0,212,255,0.06)]">

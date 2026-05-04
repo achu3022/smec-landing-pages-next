@@ -1,7 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import { Icon } from '@iconify/react'
+import { haptic } from '../useHaptic'
 import { WA } from './theme'
 
 const jobRoles = [
@@ -17,45 +19,41 @@ const jobRoles = [
   'Maintenance Engineer',
 ]
 
-const MOBILE_ROLES_LIMIT = 6
-
-const courses = [
-  {
-    code: '46700',
-    name: 'Professional Diploma',
-    sub: 'Oil & Gas with Project Management',
-    duration: '6 Months',
-    icon: 'mdi:school',
-  },
-  {
-    code: '46702',
-    name: 'Diploma in Oil & Gas',
-    sub: 'Technician Programme',
-    duration: '6 Months',
-    icon: 'mdi:hard-hat',
-  },
-  {
-    code: '46703',
-    name: 'Professional Diploma',
-    sub: 'Industrial Fire & Safety',
-    duration: '6 Months',
-    icon: 'mdi:fire',
-  },
-  {
-    code: '4670',
-    name: 'Certified Engineer',
-    sub: 'Quality & Safety',
-    duration: '3 Months',
-    icon: 'mdi:certificate',
-  },
+const TRUST_STATS = [
+  { icon: 'mdi:account-group',  value: '50K+',  label: 'Placed' },
+  { icon: 'mdi:currency-inr',   value: '₹15L',  label: 'Top Package' },
+  { icon: 'mdi:star',           value: '4.9★',  label: 'Rated' },
+  { icon: 'mdi:lightning-bolt', value: '6 Mo',  label: 'Get Hired' },
 ]
+
+const MOBILE_ROLES_LIMIT = 3
 
 export default function OilGasHero() {
   const [rolesExpanded, setRolesExpanded] = useState(false)
+  const [urgentMode, setUrgentMode]       = useState(false)
+
+  useEffect(() => {
+    const id = setInterval(() => setUrgentMode((v) => !v), 5000)
+    return () => clearInterval(id)
+  }, [])
+
+  const ctaButton = (
+    <a href={WA} target="_blank" rel="noopener noreferrer"
+      onClick={() => haptic(urgentMode ? 'heavy' : 'medium')}
+      className="flex items-center justify-center gap-2 py-3.5 rounded-2xl text-sm font-extrabold border-2 oilgas-glow-pulse"
+      style={{
+        background:  urgentMode ? 'transparent' : '#F97316',
+        borderColor: urgentMode ? '#FF3232' : 'transparent',
+        color:       urgentMode ? '#FF3232' : '#fff',
+        transition:  'background 0.8s ease, border-color 0.8s ease, color 0.8s ease',
+      }}>
+      <Icon icon={urgentMode ? 'mdi:fire' : 'mdi:whatsapp'} className="w-5 h-5 shrink-0" aria-hidden="true" />
+      <span>{urgentMode ? 'Hurry! Next batch almost full' : 'Enquire on WhatsApp'}</span>
+    </a>
+  )
 
   return (
-    <section
-      className="relative min-h-screen flex flex-col overflow-hidden"
+    <section className="relative lg:min-h-screen flex flex-col overflow-hidden"
       style={{
         background: '#0B0B0B',
         backgroundImage: `
@@ -64,56 +62,102 @@ export default function OilGasHero() {
           repeating-linear-gradient(0deg,  transparent, transparent 55px, rgba(212,175,55,0.018) 55px, rgba(212,175,55,0.018) 56px),
           repeating-linear-gradient(90deg, transparent, transparent 55px, rgba(212,175,55,0.018) 55px, rgba(212,175,55,0.018) 56px)
         `,
-      }}
-    >
+      }}>
+
       {/* Ambient blobs */}
       <div className="absolute top-0 right-0 w-96 h-96 rounded-full pointer-events-none"
         style={{ background: 'rgba(212,175,55,0.07)', filter: 'blur(100px)' }} aria-hidden="true" />
       <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full pointer-events-none"
         style={{ background: 'rgba(249,115,22,0.05)', filter: 'blur(80px)' }} aria-hidden="true" />
 
-      <div className="flex-1 flex flex-col justify-center pt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-8 sm:py-12">
+      <div className="flex-1 flex flex-col lg:justify-center lg:pt-16" style={{ zIndex: 10, position: 'relative' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-3 sm:py-8 lg:py-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-12 items-start">
 
-          {/* Badge removed */}
+            {/* ══ LEFT COLUMN ══ */}
+            <div className="flex flex-col gap-3 lg:gap-5">
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-start">
-
-            {/* ── Left column ── */}
-            <div className="flex flex-col gap-5">
-
+              {/* Headline */}
               <div>
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.08] tracking-tight">
-                  The World Runs on{' '}
-                  <br className="sm:hidden" />
-                  <span style={{ color: '#D4AF37', textShadow: '0 0 35px rgba(212,175,55,0.6)' }}>
-                    Oil &amp; Gas.
-                  </span>
+                <div className="lg:hidden">
+                  <h1 className="text-[1.75rem] font-black leading-[1.05] tracking-tight">
+                    <span className="text-white">The world runs on</span>
+                    <br />
+                    <span style={{
+                      background: 'linear-gradient(90deg, #D4AF37 0%, #F97316 100%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
+                    }}>oil &amp; gas.</span>
+                    <br />
+                    <span className="text-white text-2xl">Build your career in it.</span>
+                  </h1>
+                  <p className="mt-2 text-[#A1A1A1] text-xs leading-relaxed">
+                    Skip the theory. Master NDT, piping, QA/QC &amp; industrial safety on real equipment — in 6 months.
+                  </p>
+                </div>
+                <h1 className="hidden lg:block text-3xl lg:text-4xl font-black leading-[1.05] tracking-tight">
+                  <span className="text-white">The world runs on</span>{' '}
+                  <span style={{ color: '#D4AF37', textShadow: '0 0 35px rgba(212,175,55,0.6)' }}>oil &amp; gas.</span>
                   <br />
-                  <span style={{ color: '#F97316' }}>Build Your Career In It.</span>
+                  <span className="text-white">Build your career</span>{' '}
+                  <span style={{ color: '#F97316' }}>in it.</span>
                 </h1>
-                <p className="mt-3 text-sm leading-relaxed max-w-lg" style={{ color: '#9CA3AF' }}>
-                  Master NDT, piping engineering, QA/QC, industrial safety, and oil &amp; gas operations.
-                  Hands-on training on industry-standard equipment at SMECLabs Kochi.
+                <p className="hidden lg:block mt-3 text-[#A1A1A1] text-sm leading-relaxed max-w-lg">
+                  Skip the theory. Master NDT, piping, QA/QC &amp; industrial safety on real equipment — and land a high-paying job in 6 months.
                 </p>
+              </div>
+
+              {/* Mobile: lab image */}
+              <div className="lg:hidden relative rounded-xl overflow-hidden border border-[#D4AF37]/20 shadow-[0_0_20px_rgba(212,175,55,0.06)]">
+                <Image
+                  src="/our-industry/smec-automation-pvt-ltd-oil-and-.jpg"
+                  alt="SMECLabs Kochi — Oil & Gas Training"
+                  width={600} height={340}
+                  className="w-full h-36 object-cover"
+                  priority
+                />
+                <div className="absolute inset-0 pointer-events-none"
+                  style={{ background: 'linear-gradient(to top, rgba(212,175,55,0.15) 0%, transparent 60%)' }}
+                  aria-hidden="true" />
+                <div className="absolute bottom-2 left-2 flex items-center gap-1.5 px-2 py-1 rounded-lg"
+                  style={{ background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(8px)' }}>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] animate-pulse shrink-0" aria-hidden="true" />
+                  <span className="text-[10px] font-bold text-white">Real Equipment. Real Training. Real Skills.</span>
+                </div>
+              </div>
+
+              {/* Mobile: trust stats + CTA */}
+              <div className="lg:hidden flex flex-col gap-2">
+                <div className="grid grid-cols-4 gap-1.5">
+                  {TRUST_STATS.map((s) => (
+                    <div key={s.label}
+                      className="flex flex-col items-center gap-0.5 rounded-xl py-2 px-1 border border-white/8"
+                      style={{ background: 'rgba(255,255,255,0.03)' }}>
+                      <Icon icon={s.icon} className="w-3.5 h-3.5 text-[#D4AF37]" aria-hidden="true" />
+                      <p className="text-[11px] font-black text-[#D4AF37] leading-none">{s.value}</p>
+                      <p className="text-[8px] text-[#A1A1A1]/70 leading-none text-center">{s.label}</p>
+                    </div>
+                  ))}
+                </div>
+                {ctaButton}
+                <p className="text-[10px] text-[#A1A1A1]/50 text-center">No spam · Responds within minutes</p>
               </div>
 
               {/* Career roles */}
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: 'rgba(161,161,161,0.6)' }}>
-                  Career Roles You Can Land
+                <p className="text-[10px] font-bold text-[#A1A1A1]/60 uppercase tracking-widest mb-2">
+                  Jobs you can land
                 </p>
-                {/* Mobile: 6 visible, expand/collapse */}
                 <div className="flex flex-wrap gap-1.5 lg:hidden">
-                  {jobRoles
-                    .slice(0, rolesExpanded ? jobRoles.length : MOBILE_ROLES_LIMIT)
-                    .map((role) => (
-                      <span key={role} className="inline-flex items-center px-2.5 py-1 rounded-md border border-white/8 bg-white/4 text-[11px] font-medium text-[#A1A1A1]">
-                        {role}
-                      </span>
-                    ))}
-                  {!rolesExpanded && jobRoles.length > MOBILE_ROLES_LIMIT && (
-                    <button onClick={() => setRolesExpanded(true)}
+                  {jobRoles.slice(0, rolesExpanded ? jobRoles.length : MOBILE_ROLES_LIMIT).map((role) => (
+                    <span key={role}
+                      className="inline-flex items-center px-2.5 py-1 rounded-md border border-white/8 bg-white/4 text-[11px] font-medium text-[#A1A1A1]">
+                      {role}
+                    </span>
+                  ))}
+                  {!rolesExpanded && (
+                    <button onClick={() => { haptic('light'); setRolesExpanded(true) }}
                       className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md border text-[11px] font-semibold transition-colors"
                       style={{ borderColor: 'rgba(212,175,55,0.25)', background: 'rgba(212,175,55,0.08)', color: '#D4AF37' }}>
                       +{jobRoles.length - MOBILE_ROLES_LIMIT} more
@@ -121,71 +165,86 @@ export default function OilGasHero() {
                     </button>
                   )}
                   {rolesExpanded && (
-                    <button onClick={() => setRolesExpanded(false)}
+                    <button onClick={() => { haptic('light'); setRolesExpanded(false) }}
                       className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md border border-white/8 bg-white/4 text-[11px] font-medium text-[#A1A1A1] transition-colors">
                       Show less
                       <Icon icon="mdi:chevron-up" className="w-3 h-3" aria-hidden="true" />
                     </button>
                   )}
                 </div>
-                {/* Desktop: all visible */}
                 <div className="hidden lg:flex flex-wrap gap-1.5">
                   {jobRoles.map((role) => (
-                    <span key={role} className="inline-flex items-center px-2.5 py-1 rounded-md border border-white/8 bg-white/4 text-[11px] font-medium text-[#A1A1A1]">
+                    <span key={role}
+                      className="inline-flex items-center px-2.5 py-1 rounded-full border border-[#D4AF37]/15 bg-[#D4AF37]/5 text-[11px] font-medium text-[#A1A1A1] hover:border-[#D4AF37]/40 hover:text-white transition-colors cursor-default">
                       {role}
                     </span>
                   ))}
                 </div>
               </div>
 
-              {/* Desktop CTA */}
-              <div className="hidden lg:flex flex-col gap-2">
-                <a href={WA} target="_blank" rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 py-4 rounded-2xl text-sm font-extrabold transition-colors oilgas-glow-pulse"
-                  style={{ background: '#F97316', color: '#fff' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = '#EA580C')}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = '#F97316')}
-                >
-                  <Icon icon="mdi:whatsapp" className="w-5 h-5" aria-hidden="true" />
-                  Enquire on WhatsApp — It&apos;s Free
-                </a>
-                <p className="text-[10px] text-center" style={{ color: 'rgba(161,161,161,0.5)' }}>
-                  No spam · Our team responds within minutes
-                </p>
-              </div>
-            </div>
-
-            {/* ── Right column ── */}
-            <div className="flex flex-col gap-3">
-
-              {/* ── Trust + Outcome Badges ── */}
-              <div className="grid grid-cols-2 gap-2.5">
-                {[
-                  { icon: 'mdi:account-group',    value: '50K+',        label: 'Students Trained',       accent: '#D4AF37' },
-                  { icon: 'mdi:briefcase-check',  value: '100%',        label: 'Placement Support',      accent: '#D4AF37' },
-                  { icon: 'mdi:star',             value: '4.9 / 5',     label: 'Student Rating',         accent: '#F97316' },
-                  { icon: 'mdi:office-building',  value: '300+',        label: 'Hiring Partners',        accent: '#D4AF37' },
-                  { icon: 'mdi:certificate',      value: 'Certified',   label: 'Industry Certificate',   accent: '#F97316' },
-                  { icon: 'mdi:map-marker',       value: 'Kochi',       label: 'Hands-On Lab Training',  accent: '#D4AF37' },
-                ].map((b) => (
-                  <div key={b.label} className="flex items-center gap-2.5 rounded-xl p-3 border"
-                    style={{ background: 'rgba(17,24,39,0.6)', borderColor: 'rgba(212,175,55,0.12)' }}>
-                    <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
-                      style={{ background: 'rgba(212,175,55,0.1)' }}>
-                      <Icon icon={b.icon} className="w-4 h-4" style={{ color: b.accent }} aria-hidden="true" />
-                    </div>
-                    <div className="min-w-0">
-                      <p className="text-sm font-black leading-none" style={{ color: b.accent }}>{b.value}</p>
-                      <p className="text-[10px] leading-snug mt-0.5" style={{ color: '#6B7280' }}>{b.label}</p>
-                    </div>
+              {/* Desktop: trust stats */}
+              <div className="hidden lg:grid grid-cols-4 gap-3">
+                {TRUST_STATS.map((s) => (
+                  <div key={s.label}
+                    className="flex flex-col items-center gap-1 rounded-2xl py-4 px-2 border border-white/8 group hover:border-[#D4AF37]/30 transition-colors"
+                    style={{ background: 'rgba(255,255,255,0.03)' }}>
+                    <Icon icon={s.icon} className="w-5 h-5 text-[#D4AF37] group-hover:scale-110 transition-transform" aria-hidden="true" />
+                    <p className="text-base font-black text-[#D4AF37] leading-none"
+                      style={{ textShadow: '0 0 12px rgba(212,175,55,0.4)' }}>{s.value}</p>
+                    <p className="text-[10px] text-[#A1A1A1]/70 leading-none text-center">{s.label}</p>
                   </div>
                 ))}
               </div>
 
-              {/* Key sectors panel */}
-              <div className="rounded-2xl border overflow-hidden"
-                style={{ borderColor: 'rgba(212,175,55,0.25)', boxShadow: '0 0 40px rgba(212,175,55,0.07)' }}
-              >
+              {/* Desktop CTA */}
+              <div className="hidden lg:flex flex-col gap-2">
+                {ctaButton}
+                <p className="text-[10px] text-[#A1A1A1]/50 text-center">No spam · Our team responds within minutes</p>
+              </div>
+            </div>
+
+            {/* ══ RIGHT COLUMN ══ */}
+            <div className="flex flex-col gap-2.5 lg:gap-4">
+
+              {/* Desktop: info cards */}
+              <div className="hidden lg:grid grid-cols-2 gap-3">
+                <div className="rounded-2xl border border-white/8 p-4 flex flex-col gap-2"
+                  style={{ background: 'rgba(255,255,255,0.03)' }}>
+                  <p className="text-[10px] font-bold text-[#D4AF37] uppercase tracking-widest">What you get</p>
+                  {[
+                    { icon: 'mdi:radar',          text: 'NDT Testing' },
+                    { icon: 'mdi:pipe',           text: 'Piping Engineering' },
+                    { icon: 'mdi:hard-hat',       text: 'HSE & Safety' },
+                    { icon: 'mdi:certificate',    text: 'QA/QC' },
+                  ].map((item) => (
+                    <div key={item.text} className="flex items-center gap-2">
+                      <Icon icon={item.icon} className="w-3.5 h-3.5 shrink-0 text-[#D4AF37]" aria-hidden="true" />
+                      <span className="text-xs text-[#A1A1A1]">{item.text}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="rounded-2xl border p-4 flex flex-col gap-2 relative overflow-hidden"
+                  style={{ borderColor: 'rgba(212,175,55,0.25)', background: 'rgba(212,175,55,0.04)' }}>
+                  <div className="absolute top-0 inset-x-0 h-0.5"
+                    style={{ background: 'linear-gradient(to right, transparent, #D4AF37, transparent)' }} aria-hidden="true" />
+                  <p className="text-[10px] font-bold text-[#D4AF37] uppercase tracking-widest">Why it works</p>
+                  {[
+                    { icon: 'mdi:factory',        text: 'Real industry equipment' },
+                    { icon: 'mdi:office-building', text: '300+ hiring partners' },
+                    { icon: 'mdi:currency-inr',   text: '₹4L–₹15L salary' },
+                    { icon: 'mdi:anchor',         text: 'Gulf & offshore placements' },
+                  ].map((item) => (
+                    <div key={item.text} className="flex items-center gap-2">
+                      <Icon icon={item.icon} className="w-3.5 h-3.5 shrink-0 text-[#D4AF37]" aria-hidden="true" />
+                      <span className="text-xs text-[#A1A1A1]">{item.text}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Desktop: where you'll work panel */}
+              <div className="hidden lg:block rounded-2xl border overflow-hidden relative"
+                style={{ borderColor: 'rgba(212,175,55,0.25)', boxShadow: '0 0 40px rgba(212,175,55,0.07)' }}>
                 {['top-0 left-0 border-t-2 border-l-2 rounded-tl-xl',
                   'top-0 right-0 border-t-2 border-r-2 rounded-tr-xl',
                   'bottom-0 left-0 border-b-2 border-l-2 rounded-bl-xl',
@@ -199,14 +258,13 @@ export default function OilGasHero() {
                   </p>
                   <div className="grid grid-cols-2 gap-2.5">
                     {[
-                      { icon: 'mdi:oil',          label: 'Oil & Gas',       desc: 'Onshore & Offshore Rigs' },
-                      { icon: 'mdi:factory',       label: 'Petrochemicals',  desc: 'Refineries & Plants' },
-                      { icon: 'mdi:lightning-bolt',label: 'Power Plants',    desc: 'Thermal & Nuclear' },
-                      { icon: 'mdi:anchor',        label: 'Shipyards',       desc: 'Marine & Offshore' },
+                      { icon: 'mdi:oil',           label: 'Oil & Gas',      desc: 'Onshore & Offshore Rigs' },
+                      { icon: 'mdi:factory',        label: 'Petrochemicals', desc: 'Refineries & Plants' },
+                      { icon: 'mdi:lightning-bolt', label: 'Power Plants',   desc: 'Thermal & Nuclear' },
+                      { icon: 'mdi:anchor',         label: 'Shipyards',      desc: 'Marine & Offshore' },
                     ].map((p) => (
                       <div key={p.label} className="flex items-start gap-2 rounded-xl p-3 border"
-                        style={{ background: 'rgba(0,0,0,0.35)', borderColor: 'rgba(212,175,55,0.12)' }}
-                      >
+                        style={{ background: 'rgba(0,0,0,0.35)', borderColor: 'rgba(212,175,55,0.12)' }}>
                         <Icon icon={p.icon} className="w-4 h-4 shrink-0 mt-0.5" style={{ color: '#F97316' }} aria-hidden="true" />
                         <div>
                           <p className="text-white text-xs font-bold">{p.label}</p>
@@ -218,19 +276,6 @@ export default function OilGasHero() {
                 </div>
               </div>
 
-              {/* Mobile CTA */}
-              <div className="flex flex-col gap-2 lg:hidden">
-                <a href={WA} target="_blank" rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 py-4 rounded-2xl text-sm font-extrabold oilgas-glow-pulse"
-                  style={{ background: '#F97316', color: '#fff' }}
-                >
-                  <Icon icon="mdi:whatsapp" className="w-5 h-5" aria-hidden="true" />
-                  Enquire on WhatsApp — It&apos;s Free
-                </a>
-                <p className="text-[10px] text-center" style={{ color: 'rgba(161,161,161,0.5)' }}>
-                  No spam · Our team responds within minutes
-                </p>
-              </div>
             </div>
           </div>
         </div>

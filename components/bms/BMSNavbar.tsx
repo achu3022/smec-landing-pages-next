@@ -7,7 +7,7 @@ import { WA } from './theme'
 export default function BMSNavbar() {
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b"
+      className="relative lg:fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b"
       style={{ background: 'rgba(15,23,42,0.96)', borderColor: 'rgba(59,130,246,0.2)' }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

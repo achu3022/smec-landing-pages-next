@@ -28,28 +28,7 @@ export default function Navbar() {
               </a>
             ))}
 
-            {/* Other pages dropdown */}
-            <div className="relative group">
-              <button className="flex items-center gap-1 text-[#A1A1A1] hover:text-[#00D4FF] transition-colors text-sm font-medium">
-                More
-                <Icon icon="mdi:chevron-down" className="w-3.5 h-3.5 transition-transform group-hover:rotate-180" aria-hidden="true" />
-              </button>
-              <div className="absolute right-0 top-full mt-2 w-56 rounded-xl border border-[#00D4FF]/20 bg-[#0B0B0B]/98 backdrop-blur-md shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
-                <div className="px-3 py-2 border-b border-white/6">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-[#00D4FF]/50">Other Courses</p>
-                </div>
-                {[
-                  ['/instrumentation', 'mdi:gauge',    'Instrumentation & Control'],
-                  ['/oilgas',          'mdi:oil',       'Oil & Gas / NDT / Safety'],
-                ].map(([href, icon, label]) => (
-                  <a key={href} href={href}
-                    className="flex items-center gap-2.5 px-3 py-2.5 text-sm text-[#A1A1A1] hover:text-white hover:bg-[#00D4FF]/8 transition-colors">
-                    <Icon icon={icon} className="w-4 h-4 text-[#00D4FF]/60 shrink-0" aria-hidden="true" />
-                    {label}
-                  </a>
-                ))}
-              </div>
-            </div>
+            {/* Other pages dropdown removed */}
 
             <a href={WA} target="_blank" rel="noopener noreferrer"
               className="flex items-center gap-1.5 px-5 py-2 bg-[#00D4FF] text-black text-sm font-extrabold rounded-xl hover:bg-[#00A8CC] transition-colors glow-pulse">

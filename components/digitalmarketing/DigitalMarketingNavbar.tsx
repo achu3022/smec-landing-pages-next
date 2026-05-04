@@ -7,7 +7,7 @@ import { WA } from './theme'
 export default function DigitalMarketingNavbar() {
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b"
+      className="relative lg:fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b"
       style={{ background: 'rgba(11,11,11,0.96)', borderColor: 'rgba(249,115,22,0.18)' }}
     >
       {/* Gradient top line */}

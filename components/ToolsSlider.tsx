@@ -78,21 +78,20 @@ export default function ToolsSlider() {
               {tools.map((tool, i) => (
                 <div
                   key={i}
-                  className="flex-shrink-0 w-28 sm:w-32 flex flex-col items-center justify-center p-3 bg-[#111111] border border-white/8 rounded-xl hover:border-[#00D4FF]/40 transition-all group"
+                  className="flex-shrink-0 w-20 sm:w-28 flex items-center justify-center p-2.5 sm:p-3 bg-[#111111] border border-white/8 rounded-xl hover:border-[#00D4FF]/40 transition-all group"
                 >
-                  <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-xl flex items-center justify-center mb-2"
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl flex items-center justify-center"
                     style={{ background: 'rgba(255,255,255,0.92)' }}>
-                    <div className="relative w-12 h-12">
+                    <div className="relative w-10 h-10 sm:w-12 sm:h-12">
                       <Image
                         src={tool.src}
                         alt={tool.name}
                         fill
                         className="object-contain"
-                        sizes="(max-width: 640px) 48px, 48px"
+                        sizes="(max-width: 640px) 40px, 48px"
                       />
                     </div>
                   </div>
-                  <span className="text-[#A1A1A1] text-xs font-medium text-center leading-tight">{tool.name}</span>
                 </div>
               ))}
             </div>

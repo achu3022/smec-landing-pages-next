@@ -7,7 +7,7 @@ import { WA } from './theme'
 export default function MEPNavbar() {
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b"
+      className="relative lg:fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b"
       style={{ background: 'rgba(255,255,255,0.96)', borderColor: 'rgba(30,58,138,0.15)' }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
